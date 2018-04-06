@@ -154,7 +154,7 @@ public class SpeedActivity extends Activity {
             }
             else
             {
-                m_logger.i("update speed");
+
 
                 double speed_from_location_ms = location.getSpeed();
                 long currentTime = System.currentTimeMillis();
@@ -171,6 +171,10 @@ public class SpeedActivity extends Activity {
                 String location_speed_string = Integer.toString((int)Math.round(speed_from_location_ms * 18 / 5));
                 String calculated_speed_string = Integer.toString((int)Math.round(speed_km_hour));
                 String outputText =  location_speed_string + "|" + calculated_speed_string;
+
+                m_logger.i("update speed: fDistance = " + fDistance + "; nMillisecs = " + nMillisecs + "; speed_ms = " + speed_ms +
+                        "; speed_km_hour = " + speed_km_hour + "; Math.round(speed_km_hour) = " + Math.round(speed_km_hour));
+
                 m_activity.runOnUiThread(new SpeedSetTextRunnable(m_activity, outputText));
 
                 m_latestLocation = location;
