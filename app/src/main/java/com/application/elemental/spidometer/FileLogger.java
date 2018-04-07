@@ -40,6 +40,15 @@ public class FileLogger implements ILogger {
         i("===Log start===");
     }
 
+    public void ClearLogsDirectory()
+    {
+        File logsDir = m_context.getExternalFilesDir(null);
+
+        for(File file: logsDir.listFiles())
+            if (!file.isDirectory())
+                file.delete();
+    }
+
 //    public void StartNewFile()
 //    {
 //        Close();

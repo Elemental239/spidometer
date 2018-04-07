@@ -26,6 +26,7 @@ public class SpeedActivity extends Activity {
 
     private TextView m_speedTextView = null;
     private Button m_startStopButton = null;
+    private Button m_deleteLogsButton = null;
 
     private LocationManager m_locationManager = null;
     private SpeedometerLocationListener m_locationListener = new SpeedometerLocationListener(this);
@@ -44,15 +45,7 @@ public class SpeedActivity extends Activity {
 
         Log.i(TAG,"App started");
 
-        m_speedTextView = (TextView)findViewById(R.id.SpeedText);
-
-        m_speedTextView.setText("0");
-        m_speedTextView.setTextSize(120);
-
-        m_startStopButton = (Button)findViewById(R.id.StartStopButton);
-        m_startStopButton.setText("Start");
-
-        m_startStopButton.setOnClickListener(m_startStopButtonListener);
+        InitGUI();
 
         try {
             m_logger.StartNewFile();
@@ -80,6 +73,27 @@ public class SpeedActivity extends Activity {
                 }
             }
         }
+    }
+
+    void InitGUI()
+    {
+        m_speedTextView = (TextView)findViewById(R.id.SpeedText);
+
+        m_speedTextView.setText("0");
+        m_speedTextView.setTextSize(120);
+
+        m_startStopButton = (Button)findViewById(R.id.StartStopButton);
+        m_startStopButton.setText("Start");
+        m_deleteLogsButton = (Button)findViewById(R.id.DeleteLogsButton);
+        m_deleteLogsButton.setText("Delete logs");
+
+        m_startStopButton.setOnClickListener(m_startStopButtonListener);
+        m_deleteLogsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                m_logger.ClearLogsDirectory();
+            }
+        });
     }
 
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
